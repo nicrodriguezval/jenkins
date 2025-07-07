@@ -7,7 +7,7 @@ RUN yum -y install openssh-server \
   && rm -rf /var/cache/yum
 
 RUN useradd remote_user && \
-  echo "remote_user:password" | passwd --stdin remote_user && \
+  echo "1234" | passwd --stdin remote_user && \
   mkdir /home/remote_user/.ssh && \
   chmod 700 /home/remote_user/.ssh
 
