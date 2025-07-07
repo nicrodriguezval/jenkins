@@ -2,9 +2,9 @@ FROM fedora:43
 
 SHELL ["/bin/bash", "-exo", "pipefail", "-c"]
 
-RUN yum -y install openssh-server \
-  && yum clean all \
-  && rm -rf /var/cache/yum
+RUN yum -y install openssh-server && \
+  yum -y install curl && \
+  yum -y install unzip
 
 RUN useradd remote_user && \
   echo "1234" | passwd --stdin remote_user && \
@@ -19,5 +19,12 @@ RUN chown -R remote_user:remote_user /home/remote_user/.ssh && \
 RUN ssh-keygen -A
 
 EXPOSE 22
+
+RUN yum -y install mysql
+
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" && \
+  unzip awscliv2.zip && \
+  rm -f awscliv2.zip && \
+  ./aws/install
 
 CMD ["/usr/sbin/sshd", "-D"]
