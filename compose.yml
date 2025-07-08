@@ -6,7 +6,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 1234
     volumes:
-      - "$PWD/db_data:/var/lib/mysql"
+      - $PWD/db_data:/var/lib/mysql
     networks:
       - net
   remote_host:
@@ -14,6 +14,8 @@ services:
     image: remote-host
     build:
       context: remote-host
+    volumes:
+      - $PWD/backup.sh:/tmp/backup.sh
     networks:
       - net
     depends_on:
@@ -23,7 +25,7 @@ services:
     image: jenkins/jenkins
     restart: always
     ports:
-      - "8080:8080"
+      - 8080:8080
     volumes:
       - $PWD/jenkins_home:/var/jenkins_home
     networks:
