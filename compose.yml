@@ -1,5 +1,5 @@
 services:
-  db:
+  db_host:
     container_name: db
     image: mysql
     restart: always
@@ -17,7 +17,7 @@ services:
     networks:
       - net
     depends_on:
-      - db
+      - db_host
   jenkins:
     container_name: jenkins
     image: jenkins/jenkins
